@@ -4,16 +4,51 @@ const freelancers = [
     {Name: "Carol", Occupation: "Programmer", Price: "$70"},
     {Name: "Joe", Occupation: "Engineer", Price: "$100"},
     {Name: "Allison", Occupation: "Lawyer", Price: "$250"}
-]
-let ul = document.createElement("ul");
-for (let i = 0; i <= freelancers.length; i++){
-    let li = document.createElement("li");
-    li.textContent = freelancers[i];
-    ul.appendChild(li);
-}
-document.getElementById("list").appendChild(ul);
-console.log(ul)
+];
 
-setTimeout(() => {
-    ul.appendChild
-}, 1000);
+function createTableRow(freelancer){
+    const row = document.createElement('tr')
+
+    const name = document.createElement('td')
+    name.textContent = freelancer.name
+    const occupation = document.createElement('td')
+    occupation.textContent = freelancer.occupation
+    const price = document.createElement('td')
+    price.textContent = freelancer.price
+
+    row.append(name)
+    row.append(occupation)
+    row.append(price)
+
+    return row
+
+}
+
+function setAveragePrice(index){
+   console.log(index)
+
+   let sum = 0
+   for(let i = 0; i <= index; i++){
+    sum += freelancers[i].price
+   }
+   console.log("Average Price: ")
+   return sum / index
+
+}
+
+let index = 0
+let internal = setInterval(() => {
+    let nextRow = createTableRow(freelancers[index])
+    index += 1
+
+    if(index === freelancers.length - 1){
+        clearInterval(internal)
+    }
+
+    const table = document.querySelector('table')
+    table.append(nextRow)
+
+    let avgPrice = setAveragePrice(index)
+    const priceSpan = document.querySelector('#price')
+    priceSpan.append('#price')
+}, 1000)
